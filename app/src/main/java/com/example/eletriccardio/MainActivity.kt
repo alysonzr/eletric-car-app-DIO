@@ -1,13 +1,13 @@
 package com.example.eletriccardio
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager2.widget.ViewPager2
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.eletriccardio.databinding.ActivityMainBinding
-import com.example.eletriccardio.ui.adapter.CarAdapter
-import com.example.eletriccardio.ui.adapter.TabsAdapter
-import com.google.android.material.tabs.TabLayout
+import com.example.eletriccardio.ui.CalcularAutonomiaActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,35 +18,17 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         bindind = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindind.root)
-        setupTabs()
+        setupListeners();
+
+        val navController = findNavController(R.id.nav_host_fragment);
+        setupWithNavController(bindind.bottomNavigation, navController)
+
     }
 
-    private fun setupTabs() {
-        val tabsAdapter = TabsAdapter(this)
-        bindind.viewPager.adapter = tabsAdapter
-
-        val tabLayout  = bindind.tabLayout
-        tabLayout.addOnTabSelectedListener(object  : TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.let {
-                    bindind.viewPager.currentItem = it.position
-                }
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab?) { }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) { }
-        })
-
-        bindind.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                tabLayout.getTabAt(position)?.select()
-            }
-        })
+    private fun setupListeners() {
+        bindind.fabCalcular.setOnClickListener {
+            startActivity(Intent(this, CalcularAutonomiaActivity::class.java))
+        }
     }
-
-
-
-
 
 }

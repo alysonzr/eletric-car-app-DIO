@@ -43,7 +43,6 @@ class CarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRetrofit()
-        setupListeners()
     }
 
     override fun onResume() {
@@ -62,7 +61,6 @@ class CarFragment : Fragment() {
         binding.tvNoWifi.isVisible = true
     }
 
-
     private fun setupAdpterCar(listCars : List<Car> ) {
         val adapterCars = CarAdapter(listCars)
         binding.recyclerView.apply {
@@ -71,12 +69,6 @@ class CarFragment : Fragment() {
         }
         adapterCars.carItemLister = { carro ->
             val isSaved  = CarRepository(requireContext()).saveIfNotExist(carro)
-        }
-    }
-
-    private fun setupListeners() {
-        binding.fabCalcular.setOnClickListener {
-            startActivity(Intent(context, CalcularAutonomiaActivity::class.java))
         }
     }
 

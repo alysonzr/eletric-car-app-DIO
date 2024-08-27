@@ -10,7 +10,6 @@ import com.example.eletriccardio.databinding.ActivityCalcularAutonomiaBinding
 class CalcularAutonomiaActivity : AppCompatActivity() {
 
     private lateinit var bindind : ActivityCalcularAutonomiaBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindind = ActivityCalcularAutonomiaBinding.inflate(layoutInflater)
@@ -39,7 +38,7 @@ class CalcularAutonomiaActivity : AppCompatActivity() {
         salveSharedPref(result)
     }
 
-    fun salveSharedPref(resultado: Float){
+    private fun salveSharedPref(resultado: Float){
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
         with(sharedPref.edit()){
             putFloat(getString(R.string.saved_calc), resultado)
@@ -47,7 +46,7 @@ class CalcularAutonomiaActivity : AppCompatActivity() {
         }
     }
 
-    fun getSharedPref(): Float {
+    private fun getSharedPref(): Float {
         val sharredPref = getPreferences(Context.MODE_PRIVATE)
         return sharredPref.getFloat(getString(R.string.saved_calc), 0.0f)
     }
